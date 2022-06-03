@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SpawnEnemies : MonoBehaviour
 {
-    public const float height = 1.44f;
+    public const float height = 0.47f;
     public GameObject enemyToSpawn;
     public Transform player;
     public float timer = 5;
@@ -27,7 +27,7 @@ public class SpawnEnemies : MonoBehaviour
         {   
             spawnPlace = Random.Range(-spawnRange, spawnRange);
             timer = Random.Range(timerMin, timerMax);
-            Instantiate(enemyToSpawn, new Vector3(spawnPlace, height, player.position.z + distanceToPlayer), transform.rotation);
+            Instantiate(enemyToSpawn, new Vector3(spawnPlace, height, player.position.z + distanceToPlayer), enemyToSpawn.transform.rotation);
         }
     }
 }
