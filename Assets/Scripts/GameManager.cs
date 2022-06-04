@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -19,6 +20,7 @@ public class GameManager : MonoBehaviour
         currentTime = Time.time;
         btn_reiniciar.gameObject.SetActive(false);
         game_over.enabled=false;
+        text.text = "Pontuação: "+pontos.ToString();
     }
 
     // Update is called once per frame
@@ -31,6 +33,12 @@ public class GameManager : MonoBehaviour
         }
         if(gameOver){
             btn_reiniciar.gameObject.SetActive(true);
+            game_over.enabled=true;
         }
+    }
+    public void restart(){
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        GameManager.gameOver=false;
+        pontos=0;
     }
 }

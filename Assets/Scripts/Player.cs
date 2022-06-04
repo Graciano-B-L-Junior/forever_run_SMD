@@ -5,7 +5,7 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     private CharacterController controller;
-
+    private Animator animator;
     public float forwardSpeed;
     public float sideSpeed;
     public float jumpHeight;
@@ -17,17 +17,25 @@ public class Player : MonoBehaviour
     void Start()
     {
         controller = GetComponent<CharacterController>();
+        animator = GetComponent<Animator>();
+        animator.SetBool("Die",false);
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        MovePlayer();
+        if (GameManager.gameOver == false)
+        {
+            MovePlayer();
+        }
     }
+    private void OnControllerColliderHit(ControllerColliderHit hit)
+    {
+        if (hit.gameObject.tag == "Enemy")
+        {
 
-    private void OnCollisionEnter(Collision other) {
-        if (other.gameObject.CompareTag("Enemy")){
             GameManager.gameOver = true;
+            animator.SetBool("Die",true);
         }
     }
     void MovePlayer()
@@ -37,11 +45,14 @@ public class Player : MonoBehaviour
 
         if (controller.isGrounded)
         {
-            if (Input.GetKeyDown(KeyCode.Space)){
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
                 jumpVelocity = jumpHeight;
             }
-        } else {
-            jumpVelocity -= gravity; 
+        }
+        else
+        {
+            jumpVelocity -= gravity;
         }
 
         velocity.y = jumpVelocity;

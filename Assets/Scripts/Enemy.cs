@@ -5,7 +5,7 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     private CharacterController controller;
-
+    Animator animator;
     public float forwardSpeed;
     public float gravity;
     public float jumpVelocity;
@@ -16,33 +16,40 @@ public class Enemy : MonoBehaviour
     void Start()
     {
         controller = GetComponent<CharacterController>();
+        animator = GetComponentInChildren<Animator>();
+        animator.SetBool("gameOver",false);
     }
 
     void FixedUpdate()
     {
-        MoveCharacter();
+        if (GameManager.gameOver == false)
+        {
+            MoveCharacter();
+        }else{
+            animator.SetBool("gameOver",true);
+        }
     }
 
-    void MoveCharacter(){
-
+    void MoveCharacter()
+    {
         velocity = new Vector3(0, 0, forwardSpeed);
 
         if (!controller.isGrounded)
         {
-            jumpVelocity -= gravity; 
+            jumpVelocity -= gravity;
         }
         velocity.y = jumpVelocity;
         controller.Move(velocity);
     }
 
-        void OnBecameVisible()
-        {
-        onScreen = true;    
-        }
+    void OnBecameVisible()
+    {
+        onScreen = true;
+    }
 
     void OnBecameInvisible()
     {
-        if(onScreen)
+        if (onScreen)
         {
             Destroy(gameObject);
         }
