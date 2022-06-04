@@ -25,7 +25,11 @@ public class Player : MonoBehaviour
         MovePlayer();
     }
 
-
+    private void OnCollisionEnter(Collision other) {
+        if (other.gameObject.CompareTag("Enemy")){
+            GameManager.gameOver = true;
+        }
+    }
     void MovePlayer()
     {
         direction = Input.GetAxisRaw("Horizontal");
