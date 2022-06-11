@@ -28,12 +28,22 @@ public class Player : MonoBehaviour
         {
             MovePlayer();
         }
+        Vector3 current_limited_pos = new Vector3(0,transform.position.y,transform.position.z);
+        float posX = Mathf.Clamp(transform.position.x,-7.14f,7.14f);
+        current_limited_pos.x = posX;
+        transform.position = current_limited_pos;
     }
     private void OnControllerColliderHit(ControllerColliderHit hit)
     {
         if (hit.gameObject.tag == "Enemy")
         {
+            GameManager.gameOver = true;
+            animator.SetBool("Die",true);
+        }
+    }
 
+    private void OnCollisionEnter(Collision other) {
+        if(other.gameObject.tag=="obstacle"){
             GameManager.gameOver = true;
             animator.SetBool("Die",true);
         }
@@ -54,8 +64,8 @@ public class Player : MonoBehaviour
         {
             jumpVelocity -= gravity;
         }
-
         velocity.y = jumpVelocity;
         controller.Move(velocity * Time.deltaTime);
+        
     }
 }
