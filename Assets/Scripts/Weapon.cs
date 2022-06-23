@@ -8,7 +8,7 @@ public class Weapon : MonoBehaviour
     public GameObject bulletPrefab;
 
     void Update() {
-        if (Input.GetButtonDown("Fire1") && GameManager.gameOver==false)
+        if (Input.GetButtonDown("Fire1") && GameManager.gameManager.gameOver==false)
         {
             Shoot();
         }

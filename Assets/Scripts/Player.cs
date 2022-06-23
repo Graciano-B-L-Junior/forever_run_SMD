@@ -24,7 +24,7 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (GameManager.gameOver == false)
+        if (GameManager.gameManager.gameOver == false)
         {
             MovePlayer();
         }
@@ -37,14 +37,14 @@ public class Player : MonoBehaviour
     {
         if (hit.gameObject.tag == "Enemy")
         {
-            GameManager.gameOver = true;
+            GameManager.gameManager.gameOver = true;
             animator.SetBool("Die",true);
         }
     }
 
     private void OnCollisionEnter(Collision other) {
         if(other.gameObject.tag=="obstacle"){
-            GameManager.gameOver = true;
+            GameManager.gameManager.gameOver = true;
             animator.SetBool("Die",true);
         }
     }

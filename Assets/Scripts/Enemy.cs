@@ -22,7 +22,7 @@ public class Enemy : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (GameManager.gameOver == false)
+        if (GameManager.gameManager.gameOver == false)
         {
             MoveCharacter();
         }else{
